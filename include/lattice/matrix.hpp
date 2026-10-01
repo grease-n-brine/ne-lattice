@@ -58,5 +58,24 @@ class Matrix {
 
             return data_[r * cols_ + c];
         }
+
+        Matrix operator*(const Matrix& other) const {
+            if (this->cols_ != other.rows_) {
+                throw LatticeDimensionMismatchException("Dimension mismatch (multiplication)");
+            }
+            Matrix result(this->rows_, other.cols_);
+
+            for (size_t i = 0; i < this->rows_; ++i) {
+                for (size_t j = 0; j < other.cols_; ++j) {
+                    double sum = 0.0;
+
+                    for (size_t k = 0; k < this->cols_; ++k) {
+                        sum += (*this)(i, k) * other(k, j);
+                    }
+                    result(i, j) = sum;
+                }
+            }
+            return result;
+        }
 };
 }
