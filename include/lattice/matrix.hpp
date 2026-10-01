@@ -77,5 +77,17 @@ class Matrix {
             }
             return result;
         }
+
+        Matrix operator+(const Matrix& other) {
+            if (this->cols_ != other.rows_) {
+                throw LatticeDimensionMismatchException("Dimension mismatch (addition)");
+            }
+            Matrix result(this->rows_, this->cols_);
+
+            for (size_t i = 0; i < data_.size(); ++i) {
+                result.data_[i] = this->data_[i] + other.data_[i];
+            }
+            return result;
+        }
 };
 }
