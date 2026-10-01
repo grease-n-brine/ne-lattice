@@ -19,6 +19,13 @@ class Matrix {
             : rows_(rows), cols_(cols), data_(rows * cols, 0.0) {}
 
         Matrix(size_t rows, size_t cols, std::vector<double>& data)
-            : rows_(rows), cols_(cols), data_(data) {}
+            : rows_(rows), cols_(cols), data_(data) {
+                if (data.size() != rows * cols) {
+                    throw LatticeDimensionMismatchException(
+                        "Provided data size (" + std::to_string(data.size()) +
+                        ") does not match Lattice dimensions"
+                    );
+                }
+            }
 };
 }
