@@ -10,9 +10,13 @@ class Matrix {
     private:
         std::vector<double> data_;
         size_t rows_;
-        size_t columns_;
+        size_t cols_;
 
     public:
-        
+        Matrix(size_t rows, size_t cols)
+            : rows_(rows), cols_(cols), data_(rows * cols, 0.0) {}
+
+        Matrix(size_t rows, size_t cols, std::vector<double>& data)
+            : rows_(rows), cols_(cols), data_(data) {}
 };
 }
