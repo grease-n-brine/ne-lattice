@@ -17,14 +17,14 @@ class Matrix {
     public:
         Matrix(size_t rows, size_t cols)
         : rows_(rows), cols_(cols), data_(rows * cols, 0.0) {
-            if (rows <= 0 || cols <= 0) {
+            if (rows == 0 || cols == 0) {
                 throw LatticeException("Matrix dimensions must be greater than zero");
             }
         }
 
-        Matrix(size_t rows, size_t cols, std::vector<double>& data)
+        Matrix(size_t rows, size_t cols, const std::vector<double>& data)
         : rows_(rows), cols_(cols), data_(data) {
-            if (rows <= 0 || cols <= 0) {
+            if (rows == 0 || cols == 0) {
                 throw LatticeException("Matrix dimensions must be greater than zero");
             }
             if (data.size() != rows * cols) {
@@ -44,7 +44,7 @@ class Matrix {
         }
 
         double& operator()(size_t r, size_t c) {
-            if (r >= rows_ && c >= cols_) {
+            if (r >= rows_ || c >= cols_) {
                 throw LatticeOutOfBoundsException("Matrix index out of bounds");
             }
 
@@ -52,7 +52,7 @@ class Matrix {
         }
 
         const double& operator()(size_t r, size_t c) const {
-            if (r >= rows_ && c >= cols_) {
+            if (r >= rows_ || c >= cols_) {
                 throw LatticeOutOfBoundsException("Matrix index out of bounds");
             }
 
@@ -78,8 +78,8 @@ class Matrix {
             return result;
         }
 
-        Matrix operator+(const Matrix& other) {
-            if (this->cols_ != other.rows_) {
+        Matrix operator+(const Matrix& other) const {
+            if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
                 throw LatticeDimensionMismatchException("Dimension mismatch (addition)");
             }
             Matrix result(this->rows_, this->cols_);
@@ -90,8 +90,8 @@ class Matrix {
             return result;
         }
 
-        Matrix operator-(const Matrix& other) {
-            if (this->cols_ != other.rows_) {
+        Matrix operator-(const Matrix& other) const {
+            if (this->rows_ != other.rows_ || this->cols_ != other.cols_) {
                 throw LatticeDimensionMismatchException("Dimension mismatch (subtraction)");
             }
             Matrix result(this->rows_, this->cols_);
