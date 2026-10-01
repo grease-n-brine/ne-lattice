@@ -1,11 +1,9 @@
-cmake_minimum_required(VERSION 3.10.0)
-project(ne-lattice VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.20)
+project(ne-lattice VERSION 0.1.0 LANGUAGES CXX)
 
-add_library(ne-lattice ne-lattice.cpp)
+set(CMAKE_CXX_STANDARD 20)
 
-include(CTest)
-enable_testing()
+add_library(lattice INTERFACE)
+add_library(ne_pp::lattice ALIAS lattice)
 
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+target_include_directories(lattice INTERFACE include)
