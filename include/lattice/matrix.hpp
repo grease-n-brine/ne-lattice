@@ -101,5 +101,14 @@ class Matrix {
             }
             return result;
         }
+
+        void print() const {
+            for (size_t i = 0; i < rows_; ++i) {
+                for (size_t j = 0; j < cols_; ++j) {
+                    std::cout << (*this)(i, j) << "\t";
+                }
+                std::cout << "\n";
+            }
+        }
 };
 }
