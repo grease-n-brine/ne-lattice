@@ -52,7 +52,11 @@ class Matrix {
         }
 
         const double& operator()(size_t r, size_t c) const {
+            if (r >= rows_ && c >= cols_) {
+                throw LatticeOutOfBoundsException("Matrix index out of bounds");
+            }
 
+            return data_[r * cols_ + c];
         }
 };
 }
