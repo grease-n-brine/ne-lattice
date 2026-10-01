@@ -5,6 +5,8 @@
 #include <cassert>
 #include <iostream>
 
+#include <lattice/core/exceptions.hpp>
+
 namespace ne_pp::lattice {
 class Matrix {
     private:
